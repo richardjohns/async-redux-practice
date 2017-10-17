@@ -27,7 +27,9 @@ export const showError = (errorMessage) => {
 export function fetchPosts (subreddit) {
   return (dispatch) => {
     dispatch(requestPosts())
+    // triggers waiting indicator
     request
+      // subreddit is the argument entered into fetchPosts in the button.
       .get(`/api/v1/reddit/subreddit/${subreddit}`)
       .end((err, res) => {
         if (err) {

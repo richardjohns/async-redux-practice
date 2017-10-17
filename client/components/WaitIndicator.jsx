@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const WaitIndicator = (props) => {
+  // && evaluates to null if props.waiting is falsey.
   return (
     <div className='error'>
       {
