@@ -3,6 +3,8 @@ import request from 'superagent'
 export const SHOW_ERROR = 'SHOW_ERROR'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const REQUEST_POSTS = 'REQUEST_POSTS'
+export const RECEIVE_MEMES = 'RECEIVE_MEMES'
+export const REQUEST_MEMES = 'REQUEST_MEMES'
 
 // Post apis
 export const requestPosts = () => {
@@ -52,7 +54,9 @@ export const requestMemes = () => {
 export const receiveMemes = (memes) => {
   return {
     type: RECEIVE_MEMES,
-    memes: memes.map(meme => meme.data)
+    memes: memes
+    // memes: memes.map(meme => meme.data)
+
   }
 }
 
@@ -61,7 +65,7 @@ export function fetchMemes() {
     dispatch(requestMemes())
     request
       // subreddit is the argument entered into fetchPosts in the button.
-      .get('/api.imgflip.com/get_memes')
+      .get('https://api.imgflip.com/get_memes')
       .end((err, res) => {
         if (err) {
           dispatch(showError(err.message))

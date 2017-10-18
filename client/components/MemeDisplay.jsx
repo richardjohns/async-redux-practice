@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-const MemeDisplay = (data) => (
+const MemeDisplay = ({memes}) => (
   <div>
-    {console.log('This is data: ',data)}
-    {this.map((meme, i) =>
+    {console.log('This is data: ',{memes})}
+    {memes.map((meme, i) =>
       <img
         title={meme.name}
         src={meme.url}
@@ -19,6 +19,7 @@ const MemeDisplay = (data) => (
 // }
 
 const mapStateToProps = (state) => {
+  console.log('This is MemeDisplay state: ', state)
   return {
     memes: state.memes
   }
