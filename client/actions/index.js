@@ -4,6 +4,7 @@ export const SHOW_ERROR = 'SHOW_ERROR'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 
+// Post apis
 export const requestPosts = () => {
   return {
     type: REQUEST_POSTS
@@ -24,7 +25,7 @@ export const showError = (errorMessage) => {
   }
 }
 
-export function fetchPosts (subreddit) {
+export function fetchPosts(subreddit) {
   return (dispatch) => {
     dispatch(requestPosts())
     // triggers waiting indicator
@@ -37,6 +38,36 @@ export function fetchPosts (subreddit) {
           return
         }
         dispatch(receivePosts(res.body))
+      })
+  }
+}
+
+// Meme apis
+export const requestMemes = () => {
+  return {
+    type: REQUEST_MEMES
+  }
+}
+
+export const receiveMemes = (memes) => {
+  return {
+    type: RECEIVE_MEMES,
+    memes: memes.map(meme => meme.data)
+  }
+}
+
+export function fetchMemes() {
+  return (dispatch) => {
+    dispatch(requestMemes())
+    request
+      // subreddit is the argument entered into fetchPosts in the button.
+      .get('/api.imgflip.com/get_memes')
+      .end((err, res) => {
+        if (err) {
+          dispatch(showError(err.message))
+          return
+        }
+        dispatch(receiveMemes(res.body))
       })
   }
 }
